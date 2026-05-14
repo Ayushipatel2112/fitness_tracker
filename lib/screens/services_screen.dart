@@ -6,230 +6,73 @@ class ServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Our Services',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
+      appBar: AppBar(title: const Text('Services')),
+      body: ListView(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Text('Our Services',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+          SizedBox(height: 16),
+          _ServiceCard(
+            title: 'Workout Plans',
+            description:
+                'Follow beginner-friendly exercise routines for strength and endurance.',
+            icon: Icons.fitness_center,
+          ),
+          _ServiceCard(
+            title: 'Meal Plans',
+            description: 'Get easy meal ideas and simple nutrition guidance.',
+            icon: Icons.restaurant_menu,
+          ),
+          _ServiceCard(
+            title: 'Sleep Coaching',
+            description: 'Track your sleep and improve your nightly recovery.',
+            icon: Icons.bedtime,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ServiceCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final IconData icon;
+
+  const _ServiceCard(
+      {required this.title, required this.description, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Row(
           children: [
-            // Header
-            const Text(
-              'Transform Your Fitness Journey',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                height: 1.3,
-              ),
+            CircleAvatar(
+              radius: 26,
+              backgroundColor: const Color(0xFF6D4BFF).withOpacity(0.14),
+              child: Icon(icon, color: const Color(0xFF6D4BFF), size: 28),
             ),
-            const SizedBox(height: 10),
-            Text(
-              'Choose the perfect plan for your goals',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey.shade600,
-              ),
-            ),
-            const SizedBox(height: 30),
-
-            // Service Cards
-            _serviceCard(
-              'Personal Training',
-              'One-on-one coaching with certified trainers',
-              Icons.person,
-              const Color(0xFF92A3FD),
-              [
-                'Customized workout plans',
-                'Weekly progress tracking',
-                'Nutrition guidance',
-                'Video call sessions',
-              ],
-            ),
-            _serviceCard(
-              'Meal Planning',
-              'Personalized nutrition plans for your goals',
-              Icons.restaurant_menu,
-              const Color(0xFFC58BF2),
-              [
-                'Custom meal plans',
-                'Calorie tracking',
-                'Recipe suggestions',
-                'Shopping lists',
-              ],
-            ),
-            _serviceCard(
-              'Workout Programs',
-              'Structured programs for all fitness levels',
-              Icons.fitness_center,
-              const Color(0xFF92A3FD),
-              [
-                'Beginner to advanced',
-                'Home & gym workouts',
-                'Video demonstrations',
-                'Progress tracking',
-              ],
-            ),
-            _serviceCard(
-              'Group Classes',
-              'Join live and recorded fitness classes',
-              Icons.groups,
-              const Color(0xFFC58BF2),
-              [
-                'Live streaming classes',
-                'On-demand library',
-                'Various workout styles',
-                'Community support',
-              ],
-            ),
-            _serviceCard(
-              'Sleep Tracking',
-              'Monitor and improve your sleep quality',
-              Icons.bedtime,
-              const Color(0xFF92A3FD),
-              [
-                'Sleep pattern analysis',
-                'Quality metrics',
-                'Improvement tips',
-                'Bedtime reminders',
-              ],
-            ),
-            _serviceCard(
-              'Progress Analytics',
-              'Detailed insights into your fitness journey',
-              Icons.analytics,
-              const Color(0xFFC58BF2),
-              [
-                'Body measurements',
-                'Photo comparisons',
-                'Performance graphs',
-                'Goal tracking',
-              ],
-            ),
-            const SizedBox(height: 20),
-
-            // CTA Button
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF92A3FD),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text(
-                  'Get Started Now',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 8),
+                  Text(description,
+                      style: const TextStyle(color: Colors.black54)),
+                ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _serviceCard(
-    String title,
-    String description,
-    IconData icon,
-    Color color,
-    List<String> features,
-  ) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade200,
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Icon(icon, color: color, size: 30),
-              ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      description,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          const Divider(),
-          const SizedBox(height: 10),
-          ...features.map((feature) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  children: [
-                    Icon(Icons.check_circle, color: color, size: 20),
-                    const SizedBox(width: 10),
-                    Text(
-                      feature,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-        ],
       ),
     );
   }
